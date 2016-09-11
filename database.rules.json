@@ -1,0 +1,19 @@
+{
+  "rules": {
+    "cmmdata": {
+      ".read": true,
+      ".write": false
+    },
+    "Users": {
+      "$uid": {
+        ".write": "root.child('Users').child(auth.uid).child('isAdmin').val() == true"
+      }
+    },
+    "tasks":{
+      ".write": "root.child('Users').child(auth.uid).child('isAdmin').val() == true",
+      ".read": "root.child('Users').child(auth.uid).child('isAdmin').val() == true"
+    },
+    ".read": "auth != null",
+    ".write": "auth != null"
+  }
+}

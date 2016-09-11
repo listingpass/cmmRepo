@@ -1,0 +1,126 @@
+//=========================================================
+//  TaskForm
+//---------------------------------------------------------
+.react-autosuggest__container {
+  position: relative;
+}
+
+.react-autosuggest__input {
+  width: 240px;
+  height: 30px;
+  padding: 10px 20px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+
+.react-autosuggest__input:focus {
+  outline: none;
+}
+
+.react-autosuggest__input::-ms-clear {
+  display: none;
+}
+
+.react-autosuggest__container--open .react-autosuggest__input {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.react-autosuggest__suggestions-container {
+  display: none;
+}
+
+.react-autosuggest__container--open .react-autosuggest__suggestions-container {
+  display: block;
+  position: absolute;
+  top: 51px;
+  width: 280px;
+  border: 1px solid #aaa;
+  background-color: #ffffff;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  z-index: 2;
+}
+
+.react-autosuggest__suggestions-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.react-autosuggest__suggestion {
+  cursor: pointer;
+  padding: 10px 20px;
+}
+
+.react-autosuggest__suggestion--focused {
+  background-color: #ddd;
+}
+
+.react-autosuggest__section-title {
+  padding: 10px 0 0 10px;
+  font-size: 12px;
+  color: #777;
+  border-top: 1px dashed #ccc;
+}
+
+.react-autosuggest__section-container:first-child .react-autosuggest__section-title {
+  border-top: 0;
+}
+
+.task-form {
+  //background-image: url("http://www.cmmconstruction.com/images/cmm%20home%20badge.png");
+  background-color: rgba(168, 183, 196, 0.24);
+  background-repeat: no-repeat!important;
+  background-position: top;
+  margin: 40px 0 10px;
+  @include media-query(540) {
+    margin: 80px 0 20px;
+  }
+}
+
+.task-form__input, .Employee, .Service, .Job, .Note, .Time {
+  outline: none;
+  border: 0;
+  border-bottom: 1px dotted #666;
+  border-radius: 0;
+  padding: 0 0 5px 0;
+  width: 100%;
+  height: 50px;
+  font-family: inherit;
+  font-size: rem(28px);
+  font-weight: 500;
+  color: #ffffff;
+  background: rgba(80, 85, 54, 0.21);
+
+  @include media-query(540) {
+    height: 61px;
+    font-size: rem(32px);
+  }
+
+  &::placeholder {
+    color: #dfdfdf;
+    font-weight: 500;
+    opacity: 1; // firefox native placeholder style has opacity < 1
+  }
+
+  &:focus::placeholder {
+    color: rgb(255, 255, 255);
+    font-weight: 650;
+    opacity: 1;
+  }
+
+  // webkit input doesn't inherit font-smoothing from ancestors
+  -webkit-font-smoothing: antialiased;
+
+  // remove `x`
+  &::-ms-clear {
+    display: none;
+  }
+}
