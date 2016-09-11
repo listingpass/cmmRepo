@@ -6,14 +6,17 @@ import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import CheckCircleIcon from 'material-ui/svg-icons/action/check-circle';
 import DeleteIcon from 'material-ui/svg-icons/action/delete';
 import EditIcon from 'material-ui/svg-icons/image/edit'
 import MUIAutoComplete from 'material-ui/AutoComplete';
 import cmmdata from '../autosuggest/cmmdata.js';
-const muiTheme = getMuiTheme();
-
+import SvgIcon from 'material-ui/SvgIcon';
+import {blue500, red500, greenA200} from 'material-ui/styles/colors';
+import Divider from 'material-ui/Divider';
+const muiTheme = getMuiTheme(darkBaseTheme);
 class TaskItem extends Component {
   static propTypes = {
     deleteTask: PropTypes.func.isRequired,
@@ -154,51 +157,74 @@ class TaskItem extends Component {
     const style = {
       marginRight: 20,
     };
+      const iconStyles = {
+          marginRight: 24,
+      };
+
+      const EditSVGIcon = (props) => (
+          <SvgIcon {...props}>
+              <path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z" />
+
+              {/*<path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />*/}
+          </SvgIcon>
+      );
+
+      const EditSVG = () => (
+          <div>
+              <EditSVGIcon style={iconStyles} color={red500} hoverColor={greenA200} viewBox="0 0 24 24"/>
+          </div>
+      );
+
       var employeenames = cmmdata.employees.map(function(a) {return a.name;});
     const { editing } = this.state;
     // const { task } = this.props;
+      const dataSourceConfig = {
+          text: 'name',
+          value: 'name',
+      };
     return (
-        <MuiThemeProvider muiTheme={muiTheme}>
+    <div className="bigDiv"><MuiThemeProvider muiTheme={muiTheme}>
 
-    <Card>
+    <Card >
       <CardHeader
           title={"Hours: " + task.time +" @ "+ "Job: "+ task.job.trim()}
           subtitle={"Service: "+task.service.trim()}
           actAsExpander={true}
           showExpandableButton={true}
       />
-      <CardActions>
-        <FloatingActionButton style={style}>
-          <CheckCircleIcon />
-        </FloatingActionButton>
-        <FloatingActionButton style={style} aria-hidden={editing}
+     <CardActions>
+       <div>
+           <span>
+              <FloatingActionButton style={style}>
+                <CheckCircleIcon />
+              </FloatingActionButton>
+              <FloatingActionButton style={style} aria-hidden={editing}
                               aria-label="Delete task"
                               onClick={this.delete}
                                ref={c => this.deleteButton = c}>
-          <DeleteIcon />
-        </FloatingActionButton>
-          <div>
+                    <DeleteIcon />
+              </FloatingActionButton>
               <FloatingActionButton style={style} aria-hidden={editing}
                                     aria-label="Mark task as completed"
                                     onClick={this.toggleStatus}
-                                    ref={c => this.toggleStatusButton = c}>
-                  <svg className="icon" width="24" height="24" viewBox="0 0 24 24">
-                      <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
-                  </svg>
+                                    ref={c => this.toggleStatusButton = c} children={<EditSVGIcon color={red500} hoverColor={greenA200} viewBox="0 0 24 24"/>}>
               </FloatingActionButton>
-
-              <MUIAutoComplete
-                  floatingLabelText="Type 'peah', fuzzy search"
-                  filter={MUIAutoComplete.fuzzyFilter}
-                  dataSource={employeenames}
-                  maxSearchResults={25}
-              /></div><br/>
-      </CardActions>
+          </span>
+       </div>
+     </CardActions>
       <CardText expandable={true}>
-
-        {task.note}
+          {task.note}<br/>
+          <MUIAutoComplete
+              floatingLabelText="Type 'peah', fuzzy search"
+              filter={MUIAutoComplete.fuzzyFilter}
+              dataSource={cmmdata.employees}
+              dataSourceConfig={dataSourceConfig}
+              maxSearchResults={25}
+          />
       </CardText>
-    </Card></MuiThemeProvider>
+    </Card>
+   </MuiThemeProvider>
+    </div>
     );
           }
   renderTask(task) {
