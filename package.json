@@ -1,15 +1,15 @@
 {
   "name": "cmmhours",
   "version": "0.6.0",
-  "description": "Todo app with React, Redux, and Firebase",
-  "homepage": "https://github.com/r-park/todo-react-redux",
+  "description": "",
+  "homepage": "",
   "repository": {
     "type": "git",
-    "url": "https://github.com/r-park/todo-react-redux.git"
+    "url": "https://github.com/listingpass/cmmRepo"
   },
   "author": {
-    "name": "Richard Park",
-    "email": "objectiv@gmail.com"
+    "name": "Mike",
+    "email": "mike@mikeamato.org"
   },
   "license": "MIT",
   "private": true,
