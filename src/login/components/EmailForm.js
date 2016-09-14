@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react'
 import { Link } from 'react-router'
+import TextField from 'material-ui/TextField';
 
 function UserForm (props) {
 	return (

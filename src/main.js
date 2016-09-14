@@ -8,16 +8,15 @@ import { initAuth } from './core/auth';
 import configureStore from './core/store';
 import Root from './views/root';
 import './views/styles/styles.scss';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 const store = configureStore();
 const syncedHistory = syncHistoryWithStore(browserHistory, store);
 const rootElement = document.getElementById('root');
-injectTapEventPlugin();
+
 
 
 function render(Root) {
+  injectTapEventPlugin();
   ReactDOM.render(
     <AppContainer>
       <Root history={syncedHistory} store={store} />
