@@ -7,7 +7,21 @@ import UserForm from '../../../login/components/UserForm'
 import TextField from 'material-ui/TextField';
 import { Link } from 'react-router';
 import {Tabs, Tab} from 'material-ui/Tabs';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import CheckCircleIcon from 'material-ui/svg-icons/action/check-circle';
+import DeleteIcon from 'material-ui/svg-icons/action/delete';
+import EditIcon from 'material-ui/svg-icons/image/edit'
+import MUIAutoComplete from 'material-ui/AutoComplete';
+import SvgIcon from 'material-ui/SvgIcon';
+import {blue500, red500, greenA200} from 'material-ui/styles/colors';
+import Divider from 'material-ui/Divider';
 
+const muiTheme = getMuiTheme(darkBaseTheme);
 const styles = {
     headline: {
         fontSize: 24,
@@ -17,7 +31,7 @@ const styles = {
     },
 };
 
-export default class TabsExampleControlled extends React.Component {
+export class TabsExampleControlled extends React.Component {
 
     constructor(props) {
         super(props);
@@ -38,23 +52,22 @@ export default class TabsExampleControlled extends React.Component {
                 value={this.state.value}
                 onChange={this.handleChange}
             >
-                <Tab label="Tab A" value="a" >
+                <Tab label="Email Login" value="a" >
                     <div>
-                        <h2 style={styles.headline}>Controllable Tab A</h2>
+                        <h2 style={styles.headline}>Login</h2>
                         <p>
-                            Tabs are also controllable if you want to programmatically pass them their values.
-                            This allows for more functionality in Tabs such as not
-                            having any Tab selected or assigning them different values.
+                            <form onSubmit={props.onSubmitInfo}>
+                                
+
+                            </form>
                         </p>
                     </div>
                 </Tab>
-                <Tab label="Tab B" value="b">
+                <Tab label="Login With Slack" value="b">
                     <div>
-                        <h2 style={styles.headline}>Controllable Tab B</h2>
+                        <h2 style={styles.headline}>Use your Slack account to login</h2>
                         <p>
-                            This is another example of a controllable tab. Remember, if you
-                            use controllable Tabs, you need to give all of your tabs values or else
-                            you wont be able to select them.
+                            Coming Soon!
                         </p>
                     </div>
                 </Tab>
@@ -65,9 +78,7 @@ export default class TabsExampleControlled extends React.Component {
 
 export class SignIn extends Component {
     static propTypes = {
-    signInWithEmail: PropTypes.func.isRequired,
-    signInWithGoogle: PropTypes.func.isRequired,
-    // signInWithTwitter: PropTypes.func.isRequired
+    signInWithEmail: PropTypes.func.isRequired
 };
 
 
@@ -92,7 +103,7 @@ export class SignIn extends Component {
         errorMessage: ''
     });
 
-    authActions.login(email, password, function (message) {
+    authActions.signInWithUserEmail(email, password, function (message) {
         if (message) {
             console.log('Login err: ', message);
             this.setState({
@@ -131,16 +142,18 @@ render () {
     return (
         <div className="col-sm-6">
             <h2>Login</h2>
-            <TextField
-                hintText="Hint Text"
-                floatingLabelText="Fixed Floating Label Text"
+            <MuiThemeProvider muiTheme={muiTheme}>
+                <TextField
+                hintText="Email"
+                floatingLabelText="Email"
                 floatingLabelFixed={true}
-            /><br />
+            />
+            </MuiThemeProvider><br />
 
             <UserForm
-                onSubmitInfo={this.handleSubmitInfo}
-                onUpdateEmail={this.handleUpdateEmail}
-                onUpdatePassword={this.handleUpdatePassword}
+                onSubmitInfo={::this.handleSubmitInfo}
+                onUpdateEmail={::this.handleUpdateEmail}
+                onUpdatePassword={::this.handleUpdatePassword}
                 email={this.state.email}
                 password={this.state.password} />
             <Link to="/forgotpassword"><p>Forgot Password</p></Link>
@@ -154,7 +167,7 @@ export function doSignIn({signInWithEmail, signInWithGoogle}) {
     <div className="g-row sign-in">
       <div className="g-col">
         <h1 className="sign-in__heading">Sign in</h1>
-        <button className="btn sign-in__button" onClick={signInWithEmail} type="button">GitHub</button>
+        <SignIn signInWithEmail={signInWithEmail}/>
         <button className="btn sign-in__button" onClick={signInWithGoogle} type="button">Google</button>
         {/*<button className="btn sign-in__button" onClick={signInWithTwitter} type="button">Twitter</button>*/}
       </div>
@@ -162,10 +175,14 @@ export function doSignIn({signInWithEmail, signInWithGoogle}) {
   );
 }
 
-
+doSignIn.propTypes = {
+    signInWithEmail: PropTypes.func.isRequired,
+    signInWithGoogle: PropTypes.func.isRequired
+    // signInWithTwitter: PropTypes.func.isRequired
+};
 
 //=====================================
 //  CONNECT
 //-------------------------------------
 
-export default connect(null, authActions)(SignIn);
+export default connect(null, authActions)(doSignIn);

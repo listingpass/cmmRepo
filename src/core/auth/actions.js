@@ -6,6 +6,7 @@ import {
   SIGN_OUT_SUCCESS
 } from './action-types';
 
+let cachedUser = null;
 
 function authenticate(provider) {
   return dispatch => {
@@ -38,16 +39,24 @@ export function signInSuccess(result) {
 
 
 export function signInWithGoogle() {
-  firebase.auth.EmailAuthProvider()
   return authenticate(new firebase.auth.GoogleAuthProvider());
 }
 
-export function signInWithEmail(email,pass) {
-  return dispatch => {
-    firebaseAuth.signInWithEmailAndPassword(email,pass)
-        .then(result => dispatch(signInSuccess(result)))
-        .catch(error => dispatch(signInError(error)));
-  };
+export function signInWithEmail(email,pass,callback) {
+    return function (dispatch) {
+        firebaseAuth.signInWithEmailAndPassword(email, pass)
+            .then(function (result) {
+                let res = dispatch(signInSuccess(result));
+                cachedUser = res.payload;
+                callback();
+                return res;
+            })
+            .catch(function (error) {
+                let res = dispatch(signInError(result));
+                callback(res.payload.message);
+                return res;
+            });
+    };
 }
 export function signOut() {
   return dispatch => {
@@ -72,14 +81,7 @@ export function signup(email, password, callback) {
       });
 }
 export function login(email, password, callback) {
-
-  firebase.auth.signInWithEmailAndPassword(email, password)
-      .then(function() {
-        cachedUser = firebaseAuth.currentUser;
-        callback();
-      }, function (error) {
-        callback(error.message);
-      });
+  return signInWithEmail(email, password, callback);
 }
 export function resetPassword(email, callback) {
   console.log('Resetting password!');

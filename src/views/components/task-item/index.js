@@ -220,6 +220,8 @@ class TaskItem extends Component {
               dataSource={cmmdata.employees}
               dataSourceConfig={dataSourceConfig}
               maxSearchResults={25}
+              anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
+              targetOrigin={{ vertical: 'bottom', horizontal: 'left' }}
           />
       </CardText>
     </Card>
