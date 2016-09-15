@@ -34,7 +34,7 @@ export const paths = {
 const requireAuth = getState => {
   return (nextState, replace) => {
     if (!isAuthenticated(getState())) {
-      replace(paths.HOME);
+      replace(paths.SIGN_IN);
     }
   };
 };
@@ -42,7 +42,7 @@ const requireAuth = getState => {
 const requireUnauth = getState => {
   return (nextState, replace) => {
     if (isAuthenticated(getState())) {
-      replace(paths.DASHBOARD);
+      replace(paths.TASKS);
     }
   };
 };
@@ -55,7 +55,7 @@ export const getRoutes = getState => {
     childRoutes: [
       {
         indexRoute: {
-          component: HomeC,
+          component: SignIn,
         }
       },
       {
@@ -67,21 +67,7 @@ export const getRoutes = getState => {
         path: paths.TASKS,
         component: Tasks,
         onEnter: requireUnauth(getState)
-      },
-      {
-        path: paths.LOGOUT,
-        component: Logout,
-      },
-      {
-        path: paths.FORGOT,
-        component: ForgotPasswordContainer
-      },
-      {
-        path: paths.HOME,
-        component: HomeC
       }
-
-
     ]
   };
 };

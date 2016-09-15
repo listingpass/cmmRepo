@@ -2,7 +2,6 @@ import { List } from 'immutable';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-
 import { getNotification, notificationActions } from 'src/core/notification';
 import { getTaskFilter, getVisibleTasks, tasksActions } from 'src/core/tasks';
 import Notification from '../../components/notification';

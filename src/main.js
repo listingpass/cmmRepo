@@ -8,6 +8,9 @@ import { initAuth } from './core/auth';
 import configureStore from './core/store';
 import Root from './views/root';
 import './views/styles/styles.scss';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+injectTapEventPlugin();
 
 const store = configureStore();
 const syncedHistory = syncHistoryWithStore(browserHistory, store);
@@ -16,10 +19,11 @@ const rootElement = document.getElementById('root');
 
 
 function render(Root) {
-  injectTapEventPlugin();
   ReactDOM.render(
     <AppContainer>
-      <Root history={syncedHistory} store={store} />
+      <Root history={syncedHistory} store={store}>
+        <MuiThemeProvider muiTheme={getMuiTheme()}></MuiThemeProvider>
+      </Root>
     </AppContainer>,
     rootElement
   );

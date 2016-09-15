@@ -1,4 +1,4 @@
-  {
+{
   "name": "cmmhours",
   "version": "0.1.9",
   "description": "check it",
@@ -58,6 +58,7 @@
     "karma-jasmine": "~1.0.2",
     "karma-sourcemap-loader": "~0.3.7",
     "karma-webpack": "~1.7.0",
+    "material-ui": "^0.15.4",
     "minx": "r-park/minx.git",
     "morgan": "~1.7.0",
     "node-sass": "~3.8.0",

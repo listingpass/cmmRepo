@@ -1,6 +1,6 @@
 import { Cmmdata } from 'src/core/cmmdata';
 import { getDeletedCmmdata } from './selectors';
-import { cmmdataList } from './cmmdata-list';
+import { cmmdataList } from './cmmdata-lists';
 import {
   LOAD_CMMDATA_EMPLOYEES_SUCCESS,
   LOAD_CMMDATA_JOBS_SUCCESS,

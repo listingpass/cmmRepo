@@ -33,7 +33,6 @@ export function escapeRegexCharacters(str) {
   employeelist: new List(),
   jobslist: new List(),
   serviceslist: new List(),
-  regexresuts:theregex(this.state.searchData),
   searchValue:'',
   searchData:null
 });

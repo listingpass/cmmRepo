@@ -2,6 +2,7 @@ import { List } from 'immutable';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
+import { authActions } from 'src/core/auth';
 
 export class DashboardContainer extends Component {
 	static propTypes = {
@@ -98,7 +99,4 @@ const mapDispatchToProps = Object.assign(
 	// notificationActions
 );
 
-export default connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(DashboardContainer);
+export default connect(null, authActions)(DashboardContainer);
